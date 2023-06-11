@@ -33,4 +33,5 @@ add_link_options(
     "$<$<CONFIG:Debug>:-fsanitize=address>"
 )
 
+add_subdirectory(game)
 add_subdirectory(snake)
