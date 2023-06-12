@@ -55,6 +55,7 @@ class SnakeGame {
     SnakeGame& operator=(SnakeGame&&) = default;
 
     int GetScore() const { return score_; }
+    ScreenDimension GetScreenDimension() const { return screen_dim_; }
     const Tile& GetTargetTile() const { return targets_[curr_target_]; }
     const Snake& GetSnake() const { return snake_; }
     bool GameOver() const { return game_over_; }
