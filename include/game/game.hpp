@@ -1,5 +1,5 @@
-#ifndef GAME_
-#define GAME_
+#ifndef GAME_HPP_
+#define GAME_HPP_
 
 #include <vector>
 
