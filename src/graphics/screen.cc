@@ -250,21 +250,33 @@ void DrawGameOverScreen(const snake::game::SnakeGame& game) {
         "\\ \\_/ /\\ \\_/ /| |___ | |\\ \\  ",
         " \\___/  \\___/ \\____/ \\_| \\_| ",
     };
-    attron(COLOR_PAIR(Color::kGreen));
+    attron(A_BOLD);
     for (std::size_t i = 0; i < kGameOverBanner.size(); ++i) {
+        if (i & 1) {
+            attron(COLOR_PAIR(Color::kRed));
+        } else {
+            attron(COLOR_PAIR(Color::kGreen));
+        }
+
         mvprintw(static_cast<int>(i),
                  (dim.width - static_cast<int>(kGameOverBanner[i].size())) / 2,
                  "%s\n", kGameOverBanner[i].c_str());
+
+        if (i & 1) {
+            attroff(COLOR_PAIR(Color::kRed));
+        } else {
+            attroff(COLOR_PAIR(Color::kGreen));
+        }
     }
-    attroff(COLOR_PAIR(Color::kGreen));
+    attroff(A_BOLD);
 
     /* display the player's score */
-    attron(COLOR_PAIR(Color::kCyan));
+    attron(COLOR_PAIR(Color::kCyan) | A_BOLD);
     const std::string kScoreBanner("SCORE");
     mvprintw(static_cast<int>(kGameOverBanner.size()) + 2,
              (dim.width - static_cast<int>(kScoreBanner.size())) / 2,
              "%s: %d\n", kScoreBanner.c_str(), game.GetScore());
-    attroff(COLOR_PAIR(Color::kCyan));
+    attroff(COLOR_PAIR(Color::kCyan) | A_BOLD);
 
     /* display the quit banner */
     const std::string kQuitBanner("press q to quit");
