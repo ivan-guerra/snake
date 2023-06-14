@@ -12,6 +12,12 @@ enum Color {
     kCyan = 3,
 };
 
+enum class GameMode {
+    kEasy,
+    kMedium,
+    kHard,
+};
+
 snake::game::ScreenDimension InitScreen();
 void TerminateScreen();
 
@@ -20,6 +26,7 @@ void DisableInputDelay();
 
 snake::game::Direction ReadKeypad();
 
+GameMode PromptForGameMode();
 void DrawSnakeScreen(const snake::game::SnakeGame& game);
 void DrawGameOverScreen(const snake::game::SnakeGame& game);
 
