@@ -12,18 +12,15 @@ namespace graphics {
 static void DrawTarget(const snake::game::SnakeGame& game) {
     snake::game::Tile target = game.GetTargetTile();
 
-    attron(A_BOLD);
-    attron(COLOR_PAIR(Color::kRed));
+    attron(COLOR_PAIR(Color::kRed) | A_BOLD);
     mvaddch(target.row, target.col, ACS_DIAMOND);
-    attroff(COLOR_PAIR(Color::kRed));
-    attroff(A_BOLD);
+    attroff(COLOR_PAIR(Color::kRed) | A_BOLD);
 }
 
 static void DrawSnake(const snake::game::SnakeGame& game) {
     snake::game::Snake snake = game.GetSnake();
 
-    attron(A_BOLD);
-    attron(COLOR_PAIR(Color::kGreen));
+    attron(COLOR_PAIR(Color::kGreen) | A_BOLD);
     const auto& head = snake.front();
     switch (head.direction) {
         case snake::game::Direction::kUp:
@@ -42,12 +39,11 @@ static void DrawSnake(const snake::game::SnakeGame& game) {
             mvaddch(head.row, head.col, '?');
             break;
     }
-    attroff(A_BOLD);
 
     for (std::size_t i = 1; i < snake.size(); ++i) {
-        mvaddch(snake[i].row, snake[i].col, '+');
+        mvaddch(snake[i].row, snake[i].col, 'O');
     }
-    attroff(COLOR_PAIR(Color::kGreen));
+    attroff(COLOR_PAIR(Color::kGreen) | A_BOLD);
 }
 
 snake::game::ScreenDimension InitScreen() {
