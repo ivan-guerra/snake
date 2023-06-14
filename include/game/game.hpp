@@ -44,8 +44,14 @@ using Targets = std::vector<Tile>;
 
 class SnakeGame {
    public:
-    /** Spawn a snake and target on a screen with the parameter dimensions. */
-    explicit SnakeGame(const ScreenDimension& dim);
+    /**
+     * Spawn a snake and target on a screen with the parameter dimensions.
+     *
+     * @param[in] dim 2D screen dimensions (i.e., height and width).
+     * @param[in] border Thickness of the border surrounding the game window.
+     *                   Currently, only a thickness of 1 is supported.
+     */
+    explicit SnakeGame(const ScreenDimension& dim, int border = 1);
 
     SnakeGame() = delete;
     ~SnakeGame() = default;
@@ -55,6 +61,7 @@ class SnakeGame {
     SnakeGame& operator=(SnakeGame&&) = default;
 
     int GetScore() const { return score_; }
+    int GetBorder() const { return border_; }
     ScreenDimension GetScreenDimension() const { return screen_dim_; }
     const Tile& GetTargetTile() const { return targets_[curr_target_]; }
     const Snake& GetSnake() const { return snake_; }
@@ -102,6 +109,7 @@ class SnakeGame {
 
     bool game_over_;
     int score_;
+    int border_;
     ScreenDimension screen_dim_;
     Snake snake_;
     int curr_target_;

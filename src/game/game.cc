@@ -86,9 +86,11 @@ bool SnakeGame::IsGameOver() const {
 
     /* verify the head snake tile is in bounds */
     bool is_in_row_bounds =
-        (snake_.front().row >= 0) && (snake_.front().row < screen_dim_.height);
+        (snake_.front().row >= border_) &&
+        (snake_.front().row < (screen_dim_.height - border_));
     bool is_in_col_bounds =
-        (snake_.front().col >= 0) && (snake_.front().col < screen_dim_.width);
+        (snake_.front().col >= border_) &&
+        (snake_.front().col < (screen_dim_.width - border_));
 
     return (!is_in_row_bounds || !is_in_col_bounds);
 }
@@ -110,8 +112,12 @@ bool SnakeGame::SnakeWins() const {
     return true;
 }
 
-SnakeGame::SnakeGame(const ScreenDimension& dim)
-    : game_over_(false), score_(0), screen_dim_(dim), curr_target_(0) {
+SnakeGame::SnakeGame(const ScreenDimension& dim, int border)
+    : game_over_(false),
+      score_(0),
+      border_(border),
+      screen_dim_(dim),
+      curr_target_(0) {
     Reset();
 }
 
@@ -149,8 +155,8 @@ void SnakeGame::Reset() {
 
     /* generate a randomly shuffled vector of potential target locations */
     targets_.clear();
-    for (int i = 0; i < screen_dim_.height; ++i) {
-        for (int j = 0; j < screen_dim_.width; ++j) {
+    for (int i = border_; i < (screen_dim_.height - border_); ++i) {
+        for (int j = border_; j < (screen_dim_.width - border_); ++j) {
             targets_.push_back(
                 {.row = i, .col = j, .direction = Direction::kNone});
         }

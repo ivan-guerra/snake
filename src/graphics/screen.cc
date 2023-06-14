@@ -224,8 +224,13 @@ GameMode PromptForGameMode() {
 
 void DrawSnakeScreen(const snake::game::SnakeGame& game) {
     clear();
+
+    if (game.GetBorder()) {
+        box(stdscr, 0, 0);
+    }
     DrawTarget(game);
     DrawSnake(game);
+
     refresh();
 }
 
